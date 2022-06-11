@@ -15,6 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.RuntimeException
 import kotlin.random.Random
 
 
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupMatchesList() {
         binding!!.rvMatches.setHasFixedSize(true)
         binding!!.rvMatches.layoutManager = LinearLayoutManager(this)
+        matchesAdapter = MatchesAdapter(emptyList())
+        binding!!.rvMatches.adapter = matchesAdapter
         findMatchesFromApi()
     }
 
@@ -52,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupFloatingActionButton() {
         binding?.fbSimulate?.setOnClickListener { view ->
+
             view.animate().rotationBy(360f).setDuration(500)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -74,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         matchesApi!!.matches.enqueue(object : Callback<List<Match>> {
 
             override fun onResponse(call: Call<List<Match>>, response: Response<List<Match>>) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful) {
                     val matches: List<Match> = response.body() as List<Match>
                     matchesAdapter = MatchesAdapter(matches)
                     binding!!.rvMatches.adapter = matchesAdapter
