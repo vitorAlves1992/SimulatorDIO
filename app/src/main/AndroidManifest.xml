@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="br.testes.simulator">
+<uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -14,14 +15,15 @@
         android:theme="@style/Theme.Simulator"
         tools:targetApi="31">
         <activity
-            android:name=".DetailActivity"
+            android:name=".ui.DetailActivity"
             android:exported="true"
+            android:parentActivityName=".ui.MainActivity"
             android:theme="@style/Theme.Simulator.NoActionBar"
             >
 
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
 
             <intent-filter>
